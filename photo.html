@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+        <title>ColinSantee - Photo</title>
+        <link href="CSS/photo.css" rel="stylesheet" type="text/css">
+
+        <!--Favicon Links-->
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/favicons/manifest.json">
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="/favicons/favicon.ico">
+        <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+<script type="text/javascript" src="JavaScript/sidenav.js"></script>
+
+<header>
+    PHOTO
+</header>
+
+<div id="mySidenav" class="sidenav">
+  <a href="index.html">Colin Santee</a>
+  <a href="music.html">Musician</a>
+  <a href="video.html">Director</a>
+  <a href="#">Photographer</a>
+  <a href="https://github.com/CJSantee">Developer</a>
+</div>
+
+<a data-flickr-embed="true"  href="https://www.flickr.com/photos/139459118@N03/albums/72157707024085231" title="Portfolio"><img src="https://live.staticflickr.com/8298/29242750410_4cd5d3672e_c.jpg" width="80%" height="auto" alt="Portfolio"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+
+<div id="menu" class="container" onclick="changeMenu(this);changeNav();">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>    
+</div>
+<script type="text/javascript">
+    if (screen.width <= 699) {
+        document.location = "MobileSite/photo-mobile.html";
+    } 
+</script>
+</body> 
+
+<!--Footer-->
+<footer>
+    <div id="copywright">
+        <p>&copy;CJSanteeMedia 2019 &#124; Website by Colin Santee</p> 
+    </div>
+    <div id="social">
+        <a href="https://github.com/CJSantee"><img src="social-icons/circle/github-white.png" class="social" alt="Github"></a>
+        <a href="https://www.flickr.com/gp/139459118@N03/02gvh1"><img src="social-icons/circle/flickr.png" class="social" alt="Flickr"/></a>
+        <a href="https://www.youtube.com/channel/UCNUdkXzWfiz7TdEAxJjGPxw"><img src="social-icons/circle/youtube-variation.png" class="social" alt="YouTube"/></a>
+        <a href="https://soundcloud.com/colinsantee"><img src="social-icons/circle/soundcloud.png" class="social" alt="Soundcloud"/></a>
+        <a href="https://twitter.com/colin_santee"><img src="social-icons/circle/twitter.png" class="social" alt="Twitter"/></a>
+        <a href="https://www.instagram.com/colinsantee/"><img src="social-icons/circle/instagram.png" class="social" alt="Instagram"/></a>
+    </div>
+</footer>
+</html>

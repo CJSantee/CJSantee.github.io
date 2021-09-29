@@ -1,0 +1,104 @@
+body, html {
+    height: 100%;
+    margin: 0px;
+    font: 400 15px/1.8 "Lato", sans-serif;
+    text-decoration-color: #fff;
+    color: #777;
+    background-color: #fff;
+    text-align: center;
+}
+
+header {
+    background-color:#111;
+    color: #fff;
+    padding: 18px;
+    font-size: 50px;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#videoplayer {
+    width: 86%;
+    height: 75%;
+    margin-left: 7%;
+    margin-right: 7%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+h3 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    text-align: center;
+    padding: 80px 0px;
+    text-decoration: none;
+    font-size: 80px;
+    color: #aaaaaa;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    padding: 0px;
+    top: 15px;
+    right: 40px;
+    font-size: 120px;
+    line-height: 100px;
+}
+
+.container {
+    float: right;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+#bar1, #bar2, #bar3 {
+    width: 70px;
+    height: 10px;
+    background-color: #fff;
+    margin: 10px 0;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color:#ddd;
+    background-color:#282E34;
+    text-align:center;
+    min-height: 200px;
+    margin-top: 15px;
+}
+
+.social{
+    margin-top: 40px;
+    max-width: 120px; 
+    max-height: 120px;
+}
+
+#social a{
+	display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+}

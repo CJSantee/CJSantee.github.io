@@ -1,86 +1,91 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactLogo from './react-logo.svg';
 import AngularLogo from './angular-logo.svg';
 import MarkdownLogo from './markdown-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCodeBranch, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCodeBranch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faFile } from '@fortawesome/free-regular-svg-icons';
 import './App.css';
+import Nissan from './Nissan';
 
 function App() {
-  const [tabs, setTabs] = useState([
+  const projects = [
     {name: "ABOUTME.md", icon: MarkdownLogo},
     {name: "Nissan_PQE_Reserve.js", icon: ReactLogo},
-    {name: "DormLife.ts", icon: AngularLogo}
-  ]);
+    {name: "DormLife.ts", icon: AngularLogo},
+    {name: "Coffee-Lab.js", icon: ReactLogo}
+  ];
+  const [tabs, setTabs] = useState(projects);
   const [activeTab, setActiveTab] = useState("ABOUTME.md");
-  const rightRef = useRef(null);
-  const bottomRef = useRef(null);
+  const [explorerOpen, setExplorerOpen] = useState(false);
 
-  const BORDER_SIZE = 4;
-  let m_pos;
+  function removeTab(name) {
+    if (tabs.length === 1)
+      return; // Can't remove all tabs
 
-  function resizeRight(e) {
-    const dx = m_pos - e.x;
-    m_pos = e.x;
-    rightRef.current.style.width = (parseInt(getComputedStyle(rightRef.current, '').width) + dx) + "px";
+    setTabs(
+      tabs.filter(function(ele){
+        return ele.name !== name;
+      })
+    );
   }
 
-  function resizeBottom(e) {
-    const dy = m_pos - e.y;
-    m_pos = e.y;
-    bottomRef.current.style.height = (parseInt(getComputedStyle(bottomRef.current, '').height) + dy) + "px";
-  }
-
-  function mouseDownRight(e)  {
-    if (e.nativeEvent.offsetX < BORDER_SIZE) {
-      m_pos = e.nativeEvent.x;
-      document.addEventListener("mousemove", resizeRight, false);
+  function openProject(project) {
+    if (tabs.some(e => e.name === project.name)) {
+      setActiveTab(project.name);
+    } else {
+      setTabs([...tabs, project]);
     }
   }
 
-  function mouseDownBottom(e) {
-    if (e.nativeEvent.offsetY < BORDER_SIZE) {
-      m_pos = e.nativeEvent.y;
-      document.addEventListener("mousemove", resizeBottom, false);
-    }
-  }
-
-  document.addEventListener("mouseup", function(){
-    document.removeEventListener("mousemove", resizeRight, false);
-    document.removeEventListener("mousemove", resizeBottom, false);
-  }, false);
+  useEffect(() => {
+    setActiveTab(tabs[0].name);
+  }, [tabs])
 
   return (
     <div className="App">
-      <div id="right_panel" ref={rightRef} onMouseDown={mouseDownRight}>
-        <h1 style={{userSelect: 'none'}}>Right</h1>
-      </div>
 
-      <header>
+      <header style={explorerOpen?{width: "82vw", left: "18vw"}:{width: "96vw", left: "4vw"}}>
         {tabs.map((tab) => (
           <div key={tab.name} className={`Tab ${tab.name===activeTab?"Active":""}`} onClick={() => setActiveTab(tab.name)}>
             <img src={tab.icon} className="tab-icon" alt="logo"/>
             <h3>{tab.name}</h3>
+            <FontAwesomeIcon className="close-tab" icon={faTimes} size="1x" onClick={() => removeTab(tab.name)}/>
           </div>
         ))}
       </header>
 
       <div className="Sidebar">
-          <FontAwesomeIcon className="Icon" icon={faCodeBranch} size="3x"/>
+          <FontAwesomeIcon className="Icon" icon={faFile} size="3x" onClick={() => setExplorerOpen(!explorerOpen)}/>
+          <FontAwesomeIcon className="Icon" icon={faCodeBranch} size="3x" onClick={() => window.open("https://github.com/cjsantee/", "_blank")}/>
           <FontAwesomeIcon className="Icon" icon={faUserCircle} size="3x"/>
       </div>
+
+      {explorerOpen?
+      <div className="Explorer">
+        <h4 style={{borderBottom: "0.5px solid rgb(204,204,204)", margin: "1vw", paddingBottom: "0.5vh"}}>
+          PROJECTS
+        </h4>
+        {projects.map((project) => (
+          <div key={project.name} className="Project" style={(project.name === activeTab)?{backgroundColor: "rgb(45, 45, 45)"}:{}} onClick={() => openProject(project)}>
+            <img src={project.icon} className="file-icon" alt="logo" />
+            <h4>{project.name}</h4>
+          </div>
+        ))}
+      </div>:<div/>}
 
       {activeTab==="ABOUTME.md"?
         <div className="Title">
           <h1>Colin Santee</h1>
-          <h1 className="cursor">_</h1>
           <h2>Software Engineer</h2>
+          <h2 className="cursor">_</h2>
         </div>:<div/>
       }
+      {activeTab==="Nissan_PQE_Reserve.js"?
+        <Nissan/>:<div/>
+      }
 
-      <div id="bottom_panel" ref={bottomRef} onMouseDown={mouseDownBottom}>
-        <h1 style={{userSelect: 'none'}}>Bottom</h1>
-      </div>
+      
 
       <footer>
         <p>&copy; Colin Santee 2021 &#124; Website build with React.js</p>

@@ -1,0 +1,8 @@
+// make your customizations
+$theme-colors: (
+   "primary": rgb(219, 0, 47),
+   "secondary": rgb(25,60,133)
+);
+ 
+// import bootstrap stylesheet
+@import "~bootstrap/scss/bootstrap";

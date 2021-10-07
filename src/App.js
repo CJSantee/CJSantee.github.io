@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeBranch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle, faFile } from '@fortawesome/free-regular-svg-icons';
 import './App.css';
+import './App.scss';
 import Nissan from './Nissan';
 
 function App() {

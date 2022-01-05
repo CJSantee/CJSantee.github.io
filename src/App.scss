@@ -1,0 +1,110 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+$body-bg: #445D7B;
+$body-color: #DCDCD2;
+
+// Fonts
+$font-family-sans-serif: Menlo, Monaco, 'Courier New', monospace;
+$font-family-monospace: Menlo, Monaco, 'Courier New', monospace;
+
+$primary: #E49E4C;
+$secondary: #5DB490;
+
+// Navbar Colors
+$navbar-dark-color: $primary;
+$navbar-dark-hover-color: $secondary;
+$navbar-dark-active-color: $primary;
+// $navbar-dark-disabled-color: white;
+
+// Offcanvas Color
+$modal-content-bg: #DCDCD2;
+$modal-content-color: $secondary; // Offcanvas Title
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Custom CSS
+.section {
+    height: 100vh;
+    align-items: center;
+}
+
+$dark-bg: #37455A;
+
+.graphic {
+    background-image: url("./assets/SoftwareEngineer.svg"); /* The image used */
+    background-color: $body-bg; /* Used if the image is unavailable */
+    width: 100%; /* You must set a specified height */
+    height: 435px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: contain; /* Resize the background image to cover the entire container */  
+}
+
+.hidden-link {
+    color: $body-bg;
+}
+.hidden-link:hover {
+    color: $dark-bg;
+}
+
+@mixin faded($offset, $blur-radius, $spread-radius)
+{
+    &.faded-left:after {
+        box-shadow: inset $offset 0 $blur-radius (-$spread-radius);
+    }
+
+    &.faded-right:after {
+        box-shadow: inset (-$offset) 0 $blur-radius (-$spread-radius);
+    }
+
+    &.faded-top:after {
+       box-shadow: inset 0 $offset $blur-radius (-$spread-radius);
+    }
+
+    &.faded-bottom:after {
+        box-shadow: inset 0 (-$offset) $blur-radius (-$spread-radius);
+    }
+
+    &.faded-all:after, &.faded-left.faded-top.faded-right.faded-bottom:after {
+        box-shadow: inset 0 0 $blur-radius $spread-radius;
+    }
+}
+
+$faded-offset: 40px !default;
+$faded-blur-radius: 40px !default;
+$faded-spread-radius: 16px !default;
+
+$faded-narrow-offset: 20px !default;
+$faded-narrow-blur-radius: 20px !default;
+$faded-narrow-spread-radius: 10px !default;
+
+$faded-wide-offset: 80px !default;
+$faded-wide-blur-radius: 80px !default;
+$faded-wide-spread-radius: 28px !default;
+
+.faded {
+    position: relative;
+    display: inline-block;
+    color: $body-bg;
+
+    &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-collapse: separate;
+    }
+
+    @include faded($faded-offset, $faded-blur-radius, $faded-spread-radius);
+
+    &.faded-narrow {
+        @include faded($faded-narrow-offset, $faded-narrow-blur-radius, $faded-narrow-spread-radius);
+    }
+
+    &.faded-wide {
+        @include faded($faded-wide-offset, $faded-wide-blur-radius, $faded-wide-spread-radius);
+    }
+}

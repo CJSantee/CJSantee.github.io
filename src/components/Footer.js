@@ -1,11 +1,14 @@
-import GitHub from '../assets/GitHub.png';
-
+// Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+// Assets
+import GitHub from '../assets/GitHub.png';
+
 function Footer() {
     return (
+        // .fixed-bottom for Sticky Footer
         <Container> 
             <Navbar variant="dark" className="justify-content-center align-items-center">
                 <Nav>

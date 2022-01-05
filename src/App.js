@@ -1,28 +1,31 @@
-import './App.css';
+// Custom Components
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AboutMe from './pages/AboutMe';
-import Skills from './pages/Skills';
-import Projects from './pages/Projects';
 
+// Pages
+import AboutMe from './pages/AboutMe';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+
+// Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 function App() {
   return (
     <div>
-      <Header />
-        <Container>
+      <Header/>
+      <Container>
         <Row>
           <AboutMe />
         </Row>
         <Row>
           <Projects />
         </Row>
-        <Row>        
-          <Skills />
+        <Row>
+          <Contact />
         </Row>
-        </Container>
+      </Container>
       <Footer />
     </div>
   );

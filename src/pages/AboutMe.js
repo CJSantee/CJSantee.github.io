@@ -10,7 +10,7 @@ function AboutMe() {
                 <h2 className="text-primary">About Me</h2>
                 <p>Hi! I'm Colin.</p>
                 <p>I'm a creative and technically minded student inspired by software solutions with significant societal impact. Passionate about projects in web engineering, mobile applications, and full-stack development.</p>
-                <Button variant="outline-primary" href="../assets/Santee-Resume-2022-PDF.pdf" download>Resume</Button>
+                <Button variant="outline-primary" href="https://github.com/CJSantee/cjsantee.github.io/blob/main/public/Santee-Resume-2022-PDF.pdf" download>Resume</Button>
             </Col>
             <Col md>
                 <Row className="justify-content-center">

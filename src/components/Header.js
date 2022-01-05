@@ -1,11 +1,16 @@
+// Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+// Assets
+import GitHub from '../assets/GitHub.png';
+import LinkedIn from '../assets/LinkedIn.png';
+
 function Header() {
     return (
         <Container>
-            <Navbar collapseOnSelect variant="dark" expand="lg">
+            <Navbar collapseOnSelect variant="dark" expand="md">
                 <Navbar.Brand className="text-secondary">Colin Santee</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse className="justify-content-between">
@@ -21,14 +26,15 @@ function Header() {
                     </Nav.Item>
                 </Nav>
                 <Nav className="social">
-                    <Nav.Item>
-                        <Nav.Link href="#" className="text-white">LinkedIn</Nav.Link>  
+                    <Nav.Item className="m-2">
+                        <Nav.Link href="https://github.com/CJSantee">
+                            <img src={GitHub} alt="GitHub" width={24}/>
+                        </Nav.Link>  
                     </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="#" className="text-white">GitHub</Nav.Link>  
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="#" className="text-white">Chess.com</Nav.Link>  
+                    <Nav.Item className="m-2">
+                        <Nav.Link href="https://www.linkedin.com/in/colin-santee/">
+                            <img src={LinkedIn} alt="GitHub" width={24}/>
+                        </Nav.Link>  
                     </Nav.Item>
                 </Nav>
                 </Navbar.Collapse>

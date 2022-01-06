@@ -1,5 +1,6 @@
 // React Imports
 import { useState } from 'react';
+import * as Yup from 'yup';
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -9,17 +10,53 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Toast from 'react-bootstrap/Toast';
 
-function Contact() {
-    const [showToast, setShowToast] = useState(false);
+// Formik
+import { Formik } from 'formik';
 
-    const [formName, setFormName] = useState("");
-    const [formEmail, setFormEmail] = useState("");
-    const [formContent, setFormContent] = useState("test");
+// API Route
+const API_URL = "https://radiant-ravine-94842.herokuapp.com/contact"
+
+// Validation Schema
+const schema = Yup.object().shape({
+    name: Yup.string()
+        .min(2, "*Names must have at least 2 characters")
+        .max(100, "*Names can't be longer than 100 characters")
+        .required("*Name is required"),
+    email: Yup.string()
+        .email("*Must be a valid email address")
+        .max(100, "*Email must be less than 100 characters")
+        .required(),
+    message: Yup.string()
+        .required()
+});
+
+function Contact() {
+    const [status, setStatus] = useState("Send");
+
+    const [showToast, setShowToast] = useState(false);
+    const [toastTitle, setToastTitle] = useState("");
+    const [toastContent, setToastContent] = useState("");
 
     const toggleToast = () => setShowToast(!showToast);
 
-    const formSubmit = () => {
-        toggleToast();
+    const toast = (title, content) => {
+        setToastTitle(title);
+        setToastContent(content);
+        setShowToast(true);
+    }
+
+    const sendEmail = async (values) => {
+        setStatus("Sending...");
+        let response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(values),
+        });
+        let result = await response.json();
+        setStatus("Send");
+        toast(result.status, "Your message has been sent and I will respond as soon as I can. \n Best, \n -Colin")
     }
 
     return (
@@ -30,34 +67,86 @@ function Contact() {
                     <p>Interested in working together? Contact me!</p>
                 </Col>
                 <Col md>
-                    <Form>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Full name</Form.Label>
-                            <Form.Control type="text" placeholder='Enter name' value={formName} onChange={(e) => setFormName(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" value={formEmail} onChange={(e) => setFormEmail(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Content</Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder={'Hi Colin!\n...\n...'} value={formContent} onChange={(e) => setFormContent(e.target.value)}/>
-                        </Form.Group>
-                        <Button variant="primary" onClick={toggleToast}>
-                            Send
-                        </Button>
-                    </Form>
+                    <Formik
+                        validationSchema={schema}
+                        onSubmit={(values, actions) => {
+                            setTimeout(() => {
+                                sendEmail(values);
+                                actions.setSubmitting(false);
+                            }, 1000);
+                        }}
+                        initialValues={{
+                            name: '',
+                            email: '',
+                            message: ''
+                        }}
+                    >{({
+                        handleSubmit,
+                        handleChange,
+                        handleBlur,
+                        values,
+                        touched,
+                        isValid,
+                        errors
+                    }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Full name</Form.Label>
+                                <Form.Control 
+                                    type="text" 
+                                    name="name"
+                                    placeholder='Enter name'
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    isValid={touched.name && !errors.name}
+                                    isInvalid={!!errors.name}
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control 
+                                    type="email" 
+                                    name="email"
+                                    placeholder="Enter email" 
+                                    value={values.email} 
+                                    onChange={handleChange}
+                                    isValid={touched.email && !errors.email}
+                                    isInvalid={!!errors.email}
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Message</Form.Label>
+                                <Form.Control 
+                                    as="textarea" 
+                                    rows={3} 
+                                    name="message"
+                                    placeholder={'Hi Colin!\n...\n...'} 
+                                    value={values.message} 
+                                    onChange={handleChange}
+                                    isValid={touched.message && !errors.message}
+                                    isInvalid={!!errors.message}
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Button variant="primary" type='submit'>{status}</Button>
+                        </Form>
+                    )}
+                    </Formik>
+                    
                 </Col>
             </Row>
             <Toast show={showToast} onClose={toggleToast} className="toast">
                 <Toast.Header>
-                    <strong className="me-auto">Message Sent</strong>
+                    <strong className="me-auto">{toastTitle}</strong>
                     <small>now</small>
                 </Toast.Header>
                 <Toast.Body>
-                    <p>{`\"${formContent}\"`}</p>
-                    <p>- {formName}</p>
-                    <p>{formEmail}</p>
+                    <p>{toastContent}</p>
                 </Toast.Body>
             </Toast>
         </Container>

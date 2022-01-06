@@ -23,6 +23,8 @@ $navbar-dark-active-color: $primary;
 $modal-content-bg: #DCDCD2;
 $modal-content-color: $secondary; // Offcanvas Title
 
+$toast-color: #343a40;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 .social {
@@ -51,4 +53,11 @@ $dark-bg: #37455A;
 
 .row {
     --bs-gutter-x: 0;
+}
+
+.toast {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
